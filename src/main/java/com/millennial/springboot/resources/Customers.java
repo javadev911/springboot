@@ -25,7 +25,7 @@ public class Customers {
     @Autowired
     private CustomerService customerService;
     
-    @GetMapping("/who-am-i")
+    @GetMapping("/ping")
     public ResponseEntity<String> getPing() {
         return ResponseEntity.ok(String.format("I am Customers Microservie, current time is: %s", (new Date()).toGMTString()));
     }
