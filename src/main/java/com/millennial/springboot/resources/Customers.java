@@ -1,6 +1,7 @@
 package com.millennial.springboot.resources;
 
 import java.net.URISyntaxException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class Customers {
 
     @Autowired
     private CustomerService customerService;
+    
+    @GetMapping("/who-am-i")
+    public ResponseEntity<String> getPing() {
+        return ResponseEntity.ok(String.format("I am Customers Microservie, current time is: %s", (new Date()).toGMTString()));
+    }
 
     @GetMapping("")
     public ResponseEntity<List<Customer>> getAllCustomers() {
@@ -40,8 +46,8 @@ public class Customers {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Customer> create(@RequestBody Customer customer) throws URISyntaxException {
-
+    public ResponseEntity<Customer> create(final @RequestBody Customer customer) throws URISyntaxException {
+        customer.setFirstName("");
         Customer newCustomer = customerService.createCustomer(customer);
 
         if (newCustomer == null) {
